@@ -1,82 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Choose Your Adventure, [Girlfriend's Name]!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure for [Girlfriend's Name]!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #ffccf9;
+            background: linear-gradient(135deg, #ffccf9, #e6b3ff);
             font-family: 'Comic Neue', sans-serif;
             text-align: center;
             margin: 0;
             padding: 0;
+            color: #555;
         }
+
         h1 {
-            font-family: 'Pacifico', cursive;
+            font-family: 'Dancing Script', cursive;
             color: #ff6b9d;
+            font-size: 3em;
+            margin-top: 20px;
+        }
+
+        .container {
             margin-top: 30px;
         }
+
         button {
             background-color: #ff6b9d;
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 15px 30px;
             font-size: 18px;
+            font-family: 'Comic Neue', sans-serif;
             cursor: pointer;
-            border-radius: 8px;
-            margin: 10px;
+            border-radius: 10px;
+            margin: 15px;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         button:hover {
             background-color: #ff477e;
             transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
+
         #message {
-            margin: 20px;
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 22px;
+            margin: 25px;
             min-height: 30px;
+            font-weight: bold;
         }
-        .container {
-            margin-top: 50px;
+
+        #surprise {
+            font-family: 'Pacifico', cursive;
+            font-size: 28px;
+            color: #ff6b9d;
+            margin-top: 30px;
+            display: none;
         }
+
         .hidden {
             display: none;
         }
-        #surprise {
-            margin-top: 30px;
-            font-family: 'Pacifico', cursive;
-            font-size: 24px;
+
+        .option-container {
+            margin: 20px;
+        }
+
+        .heart {
             color: #ff6b9d;
-            display: none;
+            font-size: 30px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .image-container {
+            margin: 20px;
+        }
+
+        .image-container img {
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Hey [Girlfriend's Name], Choose Your Adventure! 💖</h1>
-        <p>Pick an option below:</p>
+        <h1>Hey [Girlfriend's Name]! 💖</h1>
+        <p>Let's go on an adventure together! Choose an option below:</p>
 
-        <button onclick="handleChoice('option1')">Let’s go on a virtual date! 🍕</button>
-        <button onclick="handleChoice('option2')">Surprise me! 🎁</button>
-        <button onclick="handleChoice('option3')">Watch a movie together 🎬</button>
+        <div class="option-container">
+            <button onclick="handleChoice('date')">Let's go on a virtual date! 🍕</button>
+            <button onclick="handleChoice('surprise')">Surprise me! 🎁</button>
+            <button onclick="handleChoice('movie')">Watch a movie together 🎬</button>
+        </div>
 
         <div id="message"></div>
-        <div id="surprise">You’re amazing! Let’s plan our next date for this weekend! 💕</div>
+        <div id="surprise">
+            <div class="heart">❤️</div>
+            <p>You're amazing! Let's plan our next date for this weekend!</p>
+            <div class="image-container">
+                <img src="https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif" alt="Celebration">
+            </div>
+        </div>
     </div>
 
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
+    <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" preload="auto"></audio>
+
     <script>
+        function playSound(soundId) {
+            const sound = document.getElementById(soundId);
+            sound.currentTime = 0;
+            sound.play();
+        }
+
         function handleChoice(choice) {
+            playSound('clickSound');
             const messageElement = document.getElementById('message');
             const surpriseElement = document.getElementById('surprise');
 
-            if (choice === 'option2') {
+            if (choice === 'surprise') {
                 messageElement.textContent = "You picked the best option!";
-                messageElement.style.color = "green";
+                messageElement.style.color = "#4CAF50";
                 surpriseElement.style.display = 'block';
+                playSound('successSound');
             } else {
-                messageElement.textContent = "Oops! That’s not the right choice. Try again!";
-                messageElement.style.color = "red";
+                messageElement.textContent = "Oops! That's not the right choice. Try again!";
+                messageElement.style.color = "#f44336";
                 event.target.classList.add('hidden');
             }
         }
