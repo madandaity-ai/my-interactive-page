@@ -1,168 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adventure for [Girlfriend's Name] 💕</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Be My Valentine, [Girlfriend's Name]?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffccf9, #ffb3d9);
+            font-family: 'Comic Neue', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #555;
+            overflow: hidden;
+            height: 100vh;
+            touch-action: none;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff3366;
+            font-size: 3.5em;
+            margin-top: 30px;
+        }
 
-<style>
-body {
-    background: linear-gradient(135deg, #ffccf9, #e6b3ff);
-    font-family: 'Comic Neue', sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    color: #555;
-}
+        p {
+            font-size: 20px;
+            margin: 20px;
+        }
 
-h1 {
-    font-family: 'Dancing Script', cursive;
-    color: #ff4f8b;
-    font-size: 3.2em;
-    margin-top: 20px;
-}
+        .container {
+            margin-top: 20px;
+        }
 
-.container {
-    margin-top: 30px;
-    padding: 10px;
-}
+        #yesButton {
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: 'Comic Neue', sans-serif;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-button {
-    background-color: #ff6b9d;
-    color: white;
-    border: none;
-    padding: 15px 28px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 12px;
-    margin: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-}
+        #yesButton:hover {
+            background-color: #ff1a5e;
+            transform: scale(1.05);
+        }
 
-button:hover {
-    background-color: #ff2f75;
-    transform: scale(1.08) rotate(-1deg);
-}
+        #noButton {
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: 'Comic Neue', sans-serif;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 15px;
+            position: absolute;
+            transition: all 0.1s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-#message {
-    font-size: 22px;
-    margin: 25px;
-    min-height: 40px;
-    font-weight: bold;
-}
+        #noButton:hover {
+            background-color: #ff1a5e;
+        }
 
-#surprise {
-    display: none;
-    animation: fadeIn 1s ease;
-}
+        #message {
+            font-size: 24px;
+            margin: 25px;
+            min-height: 30px;
+            font-weight: bold;
+        }
 
-.heart {
-    font-size: 40px;
-    animation: pulse 1.4s infinite;
-}
+        #formContainer {
+            display: none;
+            margin: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-}
+        input[type="tel"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid #ffccf9;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
+        #submitButton {
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-.image-container img {
-    max-width: 320px;
-    border-radius: 15px;
-    margin-top: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
-}
+        .heart {
+            color: #ff3366;
+            font-size: 30px;
+            animation: pulse 1.5s infinite;
+        }
 
-.hidden {
-    display: none;
-}
-</style>
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
-
 <body>
-<div class="container">
-    <h1>Hey [Girlfriend's Name] 💖</h1>
-    <p>Quick question… how much do you trust me right now? 😌</p>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <h1>Will You Be My Valentine, [Girlfriend's Name]?</h1>
+        <p>Dear [Girlfriend's Name],<br>You make every day special. Will you be my Valentine this year?</p>
 
-    <button onclick="handleChoice('date')">Virtual date with me 🍕</button>
-    <button onclick="handleChoice('surprise')">Surprise me 😏🎁</button>
-    <button onclick="handleChoice('movie')">Movie night together 🎬</button>
+        <button id="yesButton" onclick="handleChoice('yes')">Yes! ❤️</button>
+        <button id="noButton" onmouseover="moveNoButton()" ontouchstart="moveNoButton()">No</button>
 
-    <div id="message"></div>
+        <div id="message"></div>
 
-    <div id="surprise">
-        <div class="heart">❤️❤️❤️</div>
-        <p style="font-family:'Pacifico'; font-size:28px; color:#ff4f8b;">
-            Congratulations 😌  
-            You just unlocked *my favorite human* 💕
-        </p>
-
-        <p>
-            You're cute, you're special, and honestly?  
-            I’m kinda obsessed with you 😘
-        </p>
-
-        <p>
-            This weekend = **our time**.  
-            No excuses. Just you & me 💑
-        </p>
-
-        <div class="image-container">
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Love">
+        <div id="formContainer">
+            <p>Yay! Please leave your number so we can plan something special:</p>
+            <input type="tel" id="contactNumber" placeholder="Your contact number" required>
+            <button id="submitButton" onclick="submitForm()">Submit</button>
         </div>
     </div>
-</div>
 
-<audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
-<audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"></audio>
+    <script>
+        const noButton = document.getElementById('noButton');
 
-<script>
-const flirtyFails = [
-    "Nice try 😏 but I like when you choose *me*.",
-    "Wrong choice… but you're still cute, so try again 💕",
-    "Hmm nope 😌 I’ll give you another chance though.",
-    "That button was jealous of you anyway 😘"
-];
+        function moveNoButton() {
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
 
-const flirtyWins = [
-    "See? I knew you’d pick the right one 😍",
-    "Good choice, beautiful 💖",
-    "And that’s why I like you 😏",
-    "Smart *and* cute? Dangerous combo 🔥"
-];
+            const x = Math.max(0, Math.min(maxX, Math.random() * maxX));
+            const y = Math.max(0, Math.min(maxY, Math.random() * maxY));
 
-function playSound(id) {
-    const sound = document.getElementById(id);
-    sound.currentTime = 0;
-    sound.play();
-}
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        }
 
-function handleChoice(choice) {
-    playSound('clickSound');
+        function handleChoice(choice) {
+            const messageElement = document.getElementById('message');
+            const formContainer = document.getElementById('formContainer');
 
-    const message = document.getElementById('message');
-    const surprise = document.getElementById('surprise');
+            if (choice === 'yes') {
+                messageElement.textContent = "Yay! I can't wait!";
+                messageElement.style.color = "#ff3366";
+                formContainer.style.display = 'block';
+                noButton.style.display = 'none';
+            }
+        }
 
-    if (choice === 'surprise') {
-        message.style.color = "#4CAF50";
-        message.textContent = flirtyWins[Math.floor(Math.random() * flirtyWins.length)];
-        surprise.style.display = "block";
-        playSound('successSound');
-    } else {
-        message.style.color = "#f44336";
-        message.textContent = flirtyFails[Math.floor(Math.random() * flirtyFails.length)];
-        event.target.classList.add('hidden');
-    }
-}
-</script>
+        noButton.onclick = function() {
+            this.textContent = "Yes!";
+            this.onclick = function() { handleChoice('yes'); };
+            this.onmouseover = null;
+            this.ontouchstart = null;
+        };
+
+        function submitForm() {
+            const contactNumber = document.getElementById('contactNumber').value;
+
+            const formData = new FormData();
+            formData.append('contactNumber', contactNumber);
+
+            // Replace 'YOUR_EMAIL' with your actual email
+            fetch('https://formsubmit.co/YOUR_EMAIL', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                alert(`Thank you! I'll call you soon at ${contactNumber}.`);
+            })
+            .catch(error => {
+                alert('Oops! Something went wrong. Please try again.');
+            });
+        }
+    </script>
 </body>
 </html>
