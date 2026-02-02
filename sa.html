@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Special Choice for You!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Choose Your Adventure!</h1>
+    <p>Pick an option below:</p>
+
+    <button onclick="handleChoice('option1')">Option 1</button>
+    <button onclick="handleChoice('option2')">Option 2</button>
+    <button onclick="handleChoice('option3')">Option 3</button>
+
+    <div id="message"></div>
+
+    <script>
+        function handleChoice(choice) {
+            const messageElement = document.getElementById('message');
+            if (choice === 'option2') {
+                // This is the option you want her to choose
+                messageElement.textContent = "Great choice! Let's proceed!";
+                messageElement.style.color = "green";
+                // You can redirect or show more content here
+            } else {
+                // These options are "invalid"
+                messageElement.textContent = "Oops! That option is not available right now.";
+                messageElement.style.color = "red";
+                // Hide the button
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
