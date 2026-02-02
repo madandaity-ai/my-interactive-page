@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <title>Be My Valentine, [Girlfriend's Name]?</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -16,6 +16,7 @@
             overflow: hidden;
             height: 100vh;
             touch-action: none;
+            user-select: none;
         }
 
         h1 {
@@ -66,6 +67,7 @@
             position: absolute;
             transition: all 0.1s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            touch-action: none;
         }
 
         #noButton:hover {
@@ -76,6 +78,14 @@
             font-size: 24px;
             margin: 25px;
             min-height: 30px;
+            font-weight: bold;
+        }
+
+        #warningMessage {
+            display: none;
+            font-size: 20px;
+            color: #ff3366;
+            margin: 20px;
             font-weight: bold;
         }
 
@@ -130,9 +140,10 @@
         <p>Dear [Girlfriend's Name],<br>You make every day special. Will you be my Valentine this year?</p>
 
         <button id="yesButton" onclick="handleChoice('yes')">Yes! ❤️</button>
-        <button id="noButton" onmouseover="moveNoButton()" ontouchstart="moveNoButton()">No</button>
+        <button id="noButton" ontouchstart="handleNoButton(event)" onmousedown="handleNoButton(event)">No</button>
 
         <div id="message"></div>
+        <div id="warningMessage">⚠️ Nice try! You can't escape love! ❤️</div>
 
         <div id="formContainer">
             <p>Yay! Please leave your number so we can plan something special:</p>
@@ -143,16 +154,45 @@
 
     <script>
         const noButton = document.getElementById('noButton');
+        const warningMessage = document.getElementById('warningMessage');
 
-        function moveNoButton() {
+        function handleNoButton(event) {
+            event.preventDefault();
+
+            // Show warning message
+            warningMessage.style.display = 'block';
+            setTimeout(() => {
+                warningMessage.style.display = 'none';
+            }, 2000);
+
+            // Move the "No" button away
             const maxX = window.innerWidth - noButton.offsetWidth;
             const maxY = window.innerHeight - noButton.offsetHeight;
 
-            const x = Math.max(0, Math.min(maxX, Math.random() * maxX));
-            const y = Math.max(0, Math.min(maxY, Math.random() * maxY));
+            let clientX, clientY;
+            if (event.type.includes('touch')) {
+                clientX = event.touches[0].clientX;
+                clientY = event.touches[0].clientY;
+            } else {
+                clientX = event.clientX;
+                clientY = event.clientY;
+            }
 
-            noButton.style.left = `${x}px`;
-            noButton.style.top = `${y}px`;
+            let newX, newY;
+            if (clientX < window.innerWidth / 2) {
+                newX = Math.min(maxX, clientX + 150 + Math.random() * 100);
+            } else {
+                newX = Math.max(0, clientX - 150 - Math.random() * 100);
+            }
+
+            if (clientY < window.innerHeight / 2) {
+                newY = Math.min(maxY, clientY + 100 + Math.random() * 50);
+            } else {
+                newY = Math.max(0, clientY - 100 - Math.random() * 50);
+            }
+
+            noButton.style.left = `${newX}px`;
+            noButton.style.top = `${newY}px`;
         }
 
         function handleChoice(choice) {
@@ -166,13 +206,6 @@
                 noButton.style.display = 'none';
             }
         }
-
-        noButton.onclick = function() {
-            this.textContent = "Yes!";
-            this.onclick = function() { handleChoice('yes'); };
-            this.onmouseover = null;
-            this.ontouchstart = null;
-        };
 
         function submitForm() {
             const contactNumber = document.getElementById('contactNumber').value;
