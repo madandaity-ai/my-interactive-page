@@ -1,230 +1,612 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>Be My Valentine, [Girlfriend's Name]?</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #ffccf9, #ffb3d9);
-            font-family: 'Comic Neue', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            color: #555;
-            overflow: hidden;
-            height: 100vh;
-            touch-action: none;
-            user-select: none;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Valentine? 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --romantic-deep: #E90E4C;
+      --romantic-soft: #FFA1D1;
+      --romantic-light: #FFDDF6;
+      --romantic-coral: #F96F8B;
+      --text-primary: #5A0E2E;
+    }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: #ff3366;
-            font-size: 3.5em;
-            margin-top: 30px;
-        }
+    * {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23E90E4C" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
+    }
 
-        p {
-            font-size: 20px;
-            margin: 20px;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--romantic-light), var(--romantic-soft));
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: var(--text-primary);
+      user-select: none;
+    }
 
-        .container {
-            margin-top: 20px;
-        }
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+    }
 
-        #yesButton {
-            background-color: #ff3366;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-family: 'Comic Neue', sans-serif;
-            cursor: pointer;
-            border-radius: 10px;
-            margin: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--romantic-deep), var(--romantic-coral));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        #yesButton:hover {
-            background-color: #ff1a5e;
-            transform: scale(1.05);
-        }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
 
-        #noButton {
-            background-color: #ff3366;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-family: 'Comic Neue', sans-serif;
-            cursor: pointer;
-            border-radius: 10px;
-            margin: 15px;
-            position: absolute;
-            transition: all 0.1s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            touch-action: none;
-        }
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
 
-        #noButton:hover {
-            background-color: #ff1a5e;
-        }
+    .btn-yes {
+      background: linear-gradient(135deg, var(--romantic-deep), var(--romantic-coral));
+      color: white;
+    }
 
-        #message {
-            font-size: 24px;
-            margin: 25px;
-            min-height: 30px;
-            font-weight: bold;
-        }
+    .btn-no {
+      background: white;
+      color: var(--romantic-deep);
+      border: 2px solid var(--romantic-deep);
+    }
 
-        #warningMessage {
-            display: none;
-            font-size: 20px;
-            color: #ff3366;
-            margin: 20px;
-            font-weight: bold;
-        }
+    .btn:hover {
+      transform: scale(1.05);
+    }
 
-        #formContainer {
-            display: none;
-            margin: 20px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      display: none;
+    }
 
-        input[type="tel"] {
-            width: 80%;
-            padding: 10px;
-            margin: 10px;
-            border: 2px solid #ffccf9;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 200;
+      display: none;
+    }
 
-        #submitButton {
-            background-color: #ff3366;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    .form-container {
+      display: none;
+      text-align: left;
+      margin-top: 1.5rem;
+    }
 
-        .heart {
-            color: #ff3366;
-            font-size: 30px;
-            animation: pulse 1.5s infinite;
-        }
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid var(--romantic-deep);
+      border-radius: 10px;
+      font-family: inherit;
+    }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-    </style>
+    .form-container button {
+      background: var(--romantic-deep);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .quiz-container {
+      display: none;
+      text-align: left;
+      margin-top: 1.5rem;
+    }
+
+    .final-page {
+      display: none;
+      text-align: center;
+    }
+
+    .score-display {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      color: var(--romantic-deep);
+    }
+
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: var(--romantic-deep);
+      transform: rotate(45deg);
+      animation: float linear infinite;
+    }
+
+    .heart:before,
+    .heart:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: var(--romantic-deep);
+      border-radius: 50%;
+    }
+
+    .heart:before {
+      top: -15px;
+      left: 0;
+    }
+
+    .heart:after {
+      top: 0;
+      left: -15px;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .heart {
+        animation: none !important;
+      }
+    }
+
+    .music-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--romantic-deep);
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(233, 14, 76, 0.3);
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .music-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(233, 14, 76, 0.4);
+    }
+
+    .music-toggle.playing {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .touch-feedback-emoji {
+      position: fixed;
+      font-size: 2rem;
+      animation: floatUp 1.5s ease-out forwards;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-100px); }
+    }
+
+    /* Romantic button styling */
+    .romantic-btn {
+      background: linear-gradient(135deg, var(--romantic-deep), var(--romantic-coral));
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(233, 14, 76, 0.1);
+    }
+
+    .romantic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(233, 14, 76, 0.2);
+    }
+
+    .romantic-btn i {
+      margin-right: 0.5rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="heart">❤️</div>
-        <h1>Will You Be My Valentine, [Girlfriend's Name]?</h1>
-        <p>Dear [Girlfriend's Name],<br>You make every day special. Will you be my Valentine this year?</p>
+  <!-- Floating Hearts -->
+  <div class="floating-hearts" id="floating-hearts"></div>
+  <div class="confetti" id="confetti"></div>
 
-        <button id="yesButton" onclick="handleChoice('yes')">Yes! ❤️</button>
-        <button id="noButton" ontouchstart="handleNoButton(event)" onmousedown="handleNoButton(event)">No</button>
-
-        <div id="message"></div>
-        <div id="warningMessage">⚠️ Nice try! You can't escape love! ❤️</div>
-
-        <div id="formContainer">
-            <p>Yay! Please leave your number so we can plan something special:</p>
-            <input type="tel" id="contactNumber" placeholder="Your contact number" required>
-            <button id="submitButton" onclick="submitForm()">Submit</button>
-        </div>
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Initial Question -->
+    <div id="question-page">
+      <h1>Will You Be My Valentine? 💕</h1>
+      <p>I've been waiting all year to ask...</p>
+      <div class="buttons">
+        <button class="btn btn-yes" id="yes-btn">Yes</button>
+        <button class="btn btn-no" id="no-btn">No</button>
+      </div>
+      <div class="message" id="message"></div>
     </div>
 
-    <script>
-        const noButton = document.getElementById('noButton');
-        const warningMessage = document.getElementById('warningMessage');
+    <!-- Form -->
+    <div class="form-container" id="form-container">
+      <h2>Tell me more about you! 💌</h2>
+      <input type="text" id="name" placeholder="Your beautiful name" required>
+      <input type="text" id="age" placeholder="Your age (optional)">
+      <input type="text" id="number" placeholder="Your number 💕 (optional)">
+      <textarea id="message-text" placeholder="Tell me something only we know..." rows="3"></textarea>
+      <button class="romantic-btn">
+        <i class="fas fa-paper-plane"></i>
+        Send My Love!
+      </button>
+    </div>
 
-        function handleNoButton(event) {
-            event.preventDefault();
+    <!-- Quiz -->
+    <div class="quiz-container" id="quiz-container">
+      <h2>Let's see how well we match! 💖</h2>
+      <div id="quiz-questions"></div>
+      <button id="quiz-submit" class="romantic-btn">
+        <i class="fas fa-heart"></i>
+        See My Score!
+      </button>
+    </div>
 
-            // Show warning message
-            warningMessage.style.display = 'block';
+    <!-- Final Page -->
+    <div class="final-page" id="final-page">
+      <h2>We're a Perfect Match! 💕</h2>
+      <div class="score-display" id="score-display">You scored 150/150!</div>
+      <div class="info-card">
+        <p><strong>Name:</strong> <span id="final-name">[Her Name]</span></p>
+        <p><strong>Age:</strong> <span id="final-age">[Her Age]</span></p>
+        <p><strong>Number:</strong> <span id="final-number">[Her Number]</span></p>
+      </div>
+      <p>Please screenshot this and send it to me on Telegram! 💌</p>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="yes-audio" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" preload="auto"></audio>
+  <audio id="no-audio" src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-falling-whistle-2369.mp3" preload="auto"></audio>
+  <audio id="bg-music" src="https://assets.mixkit.co/music/preview/mixkit-romantic-piano-2389.mp3" loop preload="auto"></audio>
+  <button id="music-toggle" class="music-toggle" title="Toggle Romantic Music">
+    <i class="fas fa-music"></i>
+  </button>
+
+  <script>
+    // Global Variables
+    let noAttempts = 0;
+    let musicPlaying = false;
+    let userData = {};
+    let userInteracted = false;
+
+    // Escape Messages
+    const escapeMessages = [
+      { text: "Nice try! 💕", emoji: "💕" },
+      { text: "Are you sure? 🥺", emoji: "🥺" },
+      { text: "Babyy, please? 💝", emoji: "💝" },
+      { text: "Don't do this to me 😭", emoji: "😭" },
+      { text: "Say yes or else... 😈", emoji: "😈" },
+      { text: "You can't escape love! 💘", emoji: "💘" },
+      { text: "I'll find you! 😘", emoji: "😘" },
+      { text: "Last chance! 💔", emoji: "💔" }
+    ];
+
+    // Initialize floating hearts
+    function createFloatingHearts() {
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.top = Math.random() * 100 + '%';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 20 + 's';
+        heart.style.animationDuration = (15 + Math.random() * 25) + 's';
+        document.getElementById('floating-hearts').appendChild(heart);
+      }
+    }
+
+    // "No" Button Escape Logic
+    function initNoButtonEscape() {
+      const noBtn = document.getElementById('no-btn');
+      let isEscaping = false;
+
+      noBtn.addEventListener('mouseenter', () => {
+        if (isEscaping) return;
+        isEscaping = true;
+        noAttempts++;
+
+        const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+        const newX = Math.max(40, Math.random() * maxX);
+        const newY = Math.max(40, Math.random() * maxY);
+
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = `${newX}px`;
+        noBtn.style.top = `${newY}px`;
+
+        const messageEl = document.getElementById('message');
+        const message = escapeMessages[Math.min(noAttempts - 1, escapeMessages.length - 1)];
+        messageEl.textContent = message.text;
+        messageEl.style.display = 'block';
+        setTimeout(() => {
+          messageEl.style.display = 'none';
+        }, 2000);
+
+        const noAudio = document.getElementById('no-audio');
+        noAudio.currentTime = 0;
+        noAudio.play();
+
+        setTimeout(() => {
+          isEscaping = false;
+        }, 300);
+      });
+
+      noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const emojis = ["😘", "🏃‍♀️", "💨", "🙈", "😏", "💘", "😗", "💔"];
+        const emoji = document.createElement('div');
+        emoji.className = 'touch-feedback-emoji';
+        emoji.textContent = emojis[Math.min(Math.floor(noAttempts / 2), emojis.length - 1)];
+        emoji.style.left = e.touches[0].clientX + 'px';
+        emoji.style.top = e.touches[0].clientY + 'px';
+        document.body.appendChild(emoji);
+        setTimeout(() => emoji.remove(), 1500);
+        noBtn.dispatchEvent(new Event('mouseenter'));
+      });
+    }
+
+    // "Yes" Button Logic
+    function initYesButton() {
+      const yesBtn = document.getElementById('yes-btn');
+      const formContainer = document.getElementById('form-container');
+      const questionPage = document.getElementById('question-page');
+
+      yesBtn.addEventListener('click', () => {
+        questionPage.style.display = 'none';
+        formContainer.style.display = 'block';
+        celebrateSuccess();
+      });
+    }
+
+    // Form Submission
+    function initForm() {
+      const formContainer = document.getElementById('form-container');
+      const quizContainer = document.getElementById('quiz-container');
+      const submitBtn = document.querySelector('.form-container .romantic-btn');
+
+      submitBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        userData = {
+          name: document.getElementById('name').value,
+          age: document.getElementById('age').value,
+          number: document.getElementById('number').value,
+          message: document.getElementById('message-text').value
+        };
+        formContainer.style.display = 'none';
+        showQuiz();
+      });
+    }
+
+    // Quiz Logic
+    function showQuiz() {
+      const quizContainer = document.getElementById('quiz-container');
+      const quizQuestions = document.getElementById('quiz-questions');
+      const quizSubmit = document.getElementById('quiz-submit');
+
+      const questions = [
+        { question: "What's your favorite color?", options: ["Pink", "Blue", "Red", "Other"], points: 20 },
+        { question: "Beach or mountains for a date?", options: ["Beach", "Mountains"], points: 20 },
+        { question: "PDA: Hold hands, hug, or kiss in public?", options: ["Hold hands", "Hug", "Kiss"], points: 20 },
+        { question: "Favorite music genre?", options: ["Pop", "Rock", "Jazz", "Other"], points: 20 },
+        { question: "Night sky or sunset?", options: ["Night sky", "Sunset"], points: 20 },
+        { question: "Favorite sport?", options: ["Football", "Tennis", "Swimming", "None"], points: 20 },
+        { question: "Coffee or tea?", options: ["Coffee", "Tea"], points: 20 }
+      ];
+
+      quizQuestions.innerHTML = '';
+      questions.forEach((q, i) => {
+        const div = document.createElement('div');
+        div.className = 'mb-4';
+        div.innerHTML = `
+          <p class="font-medium mb-2">${i + 1}. ${q.question}</p>
+          <div class="flex flex-wrap gap-2">
+            ${q.options.map(opt => `
+              <label class="inline-flex items-center">
+                <input type="radio" name="q${i}" value="${opt}" class="mr-2">
+                ${opt}
+              </label>
+            `).join('')}
+          </div>
+        `;
+        quizQuestions.appendChild(div);
+      });
+
+      quizContainer.style.display = 'block';
+      quizSubmit.addEventListener('click', showFinalPage);
+    }
+
+    // Final Page
+    function showFinalPage() {
+      const finalPage = document.getElementById('final-page');
+      document.getElementById('final-name').textContent = userData.name || "[Her Name]";
+      document.getElementById('final-age').textContent = userData.age || "[Her Age]";
+      document.getElementById('final-number').textContent = userData.number || "[Her Number]";
+      document.getElementById('quiz-container').style.display = 'none';
+      finalPage.style.display = 'block';
+    }
+
+    // Celebration
+    function celebrateSuccess() {
+      const confettiEl = document.getElementById('confetti');
+      confettiEl.style.display = 'block';
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#E90E4C', '#FF6B6B', '#FFD700', '#FF1493'],
+        shapes: ['heart'],
+        scalar: 1.2
+      });
+
+      const yesAudio = document.getElementById('yes-audio');
+      yesAudio.currentTime = 0;
+      yesAudio.play();
+
+      // Start background music if not already playing
+      startBackgroundMusic();
+    }
+
+    // Music Toggle
+    function initMusicToggle() {
+      const musicToggle = document.getElementById('music-toggle');
+      const bgMusic = document.getElementById('bg-music');
+
+      musicToggle.addEventListener('click', () => {
+        if (!musicPlaying) {
+          bgMusic.volume = 0.3;
+          bgMusic.play().then(() => {
+            musicPlaying = true;
+            musicToggle.classList.add('playing');
+            musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+          }).catch(() => {
+            // If autoplay fails, show error state
+            musicToggle.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
             setTimeout(() => {
-                warningMessage.style.display = 'none';
+              musicToggle.innerHTML = '<i class="fas fa-music"></i>';
             }, 2000);
-
-            // Move the "No" button away
-            const maxX = window.innerWidth - noButton.offsetWidth;
-            const maxY = window.innerHeight - noButton.offsetHeight;
-
-            let clientX, clientY;
-            if (event.type.includes('touch')) {
-                clientX = event.touches[0].clientX;
-                clientY = event.touches[0].clientY;
-            } else {
-                clientX = event.clientX;
-                clientY = event.clientY;
-            }
-
-            let newX, newY;
-            if (clientX < window.innerWidth / 2) {
-                newX = Math.min(maxX, clientX + 150 + Math.random() * 100);
-            } else {
-                newX = Math.max(0, clientX - 150 - Math.random() * 100);
-            }
-
-            if (clientY < window.innerHeight / 2) {
-                newY = Math.min(maxY, clientY + 100 + Math.random() * 50);
-            } else {
-                newY = Math.max(0, clientY - 100 - Math.random() * 50);
-            }
-
-            noButton.style.left = `${newX}px`;
-            noButton.style.top = `${newY}px`;
+          });
+        } else {
+          if (bgMusic.volume > 0) {
+            bgMusic.volume = 0;
+            musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            musicToggle.classList.remove('playing');
+          } else {
+            bgMusic.volume = 0.3;
+            musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+            musicToggle.classList.add('playing');
+          }
         }
+      });
+    }
 
-        function handleChoice(choice) {
-            const messageElement = document.getElementById('message');
-            const formContainer = document.getElementById('formContainer');
+    // Start background music after user interaction
+    function startBackgroundMusic() {
+      if (!userInteracted) {
+        userInteracted = true;
+        const bgMusic = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
 
-            if (choice === 'yes') {
-                messageElement.textContent = "Yay! I can't wait!";
-                messageElement.style.color = "#ff3366";
-                formContainer.style.display = 'block';
-                noButton.style.display = 'none';
-            }
+        // Try to play music
+        const playPromise = bgMusic.play();
+
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            musicPlaying = true;
+            musicToggle.classList.add('playing');
+            musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+          }).catch(() => {
+            // If autoplay fails, show error and wait for user click
+            musicToggle.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+            setTimeout(() => {
+              musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+            }, 2000);
+          });
         }
+      }
+    }
 
-        function submitForm() {
-            const contactNumber = document.getElementById('contactNumber').value;
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      createFloatingHearts();
+      initNoButtonEscape();
+      initYesButton();
+      initForm();
+      initMusicToggle();
 
-            const formData = new FormData();
-            formData.append('contactNumber', contactNumber);
-
-            // Replace 'YOUR_EMAIL' with your actual email
-            fetch('https://formsubmit.co/YOUR_EMAIL', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                alert(`Thank you! I'll call you soon at ${contactNumber}.`);
-            })
-            .catch(error => {
-                alert('Oops! Something went wrong. Please try again.');
-            });
+      // Add click event to start music on first interaction
+      document.addEventListener('click', () => {
+        if (!userInteracted) {
+          startBackgroundMusic();
         }
-    </script>
+      }, { once: true });
+    });
+  </script>
 </body>
 </html>
